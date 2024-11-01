@@ -47,17 +47,21 @@ do_compile () {
 
     unset LDFLAGS
 
-    export DEFINES='${DEFINES}'
-    export ARCH=riscv
-    export BOOT_CPU=riscv
-    export CHIP_ARCH=${CHIP_ARCH}
-    export DDR_CFG=${DDR_CFG}
-    export MONITOR_PATH=${DEPLOY_DIR_IMAGE}/fw_dynamic.bin
-
-    oe_runmake -C ${S} \
-        CROSS_COMPILE=${HOST_PREFIX} \
-        BLCP_2ND_PATH=${B}/blank.bin \
-        LOADER_2ND_PATH=${DEPLOY_DIR_IMAGE}/u-boot.bin
+	# generate fip.bin
+	python3 ${S}/plat/cv180x/fiptool.py genfip ${B}/fip.bin \
+		--MONITOR_RUNADDR=0x80000000 \
+		--CHIP_CONF=${S}/plat/cv180x/chip_conf.bin \
+		--NOR_INFO=FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF \
+		--NAND_INFO=00000000 \
+		--BL2=${B}/cv180x/bl2.bin \
+		--BLCP_IMG_RUNADDR=0x05200200 \
+		--BLCP_PARAM_LOADADDR=0 \
+		--BLCP_2ND=${B}/blank.bin \
+		--BLCP_2ND_RUNADDR=0x83f40000 \
+		--DDR_PARAM=${S}/test/cv181x/ddr_param.bin \
+		--MONITOR=${DEPLOY_DIR_IMAGE}/fw_dynamic.bin \
+		--LOADER_2ND=${DEPLOY_DIR_IMAGE}/u-boot.bin \
+		--NAND_BOOT=1
 }
 
 do_deploy () {
