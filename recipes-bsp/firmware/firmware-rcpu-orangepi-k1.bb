@@ -5,11 +5,9 @@ LICENSE = "CLOSED"
 
 SRC_URI = "file://esos.elf"
 
-S = "${UNPACKDIR}"
-
 do_install() {
     install -d ${D}/lib/firmware
-    install -m 0644 ${UNPACKDIR}/esos.elf ${D}/lib/firmware/
+    install -m 0644 ${WORKDIR}/esos.elf ${D}/lib/firmware/
 }
 
 FILES:${PN} = "/lib/firmware"
