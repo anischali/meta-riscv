@@ -7,21 +7,9 @@ repos:
     path: layers/poky
     branch: scarthgap
     layers:
-      bitbake: disabled
-
-  core:
-    url: https://git.openembedded.org/openembedded-core
-    path: layers/openembedded-core
-    branch: master
-    layers:
-        meta:
-
-  meta-yocto:
-    url: https://git.yoctoproject.org/meta-yocto
-    path: layers/meta-poky
-    branch: master
-    layers:
-       meta-poky:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
 
   meta-openembedded:
     url: https://git.openembedded.org/meta-openembedded
