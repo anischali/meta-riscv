@@ -1,7 +1,7 @@
 require recipes-bsp/u-boot/u-boot.inc
 require recipes-bsp/u-boot/u-boot-common.inc
 
-DEPENDS += "u-boot-tools-native"
+DEPENDS += "u-boot-tools-native dtc-native"
 DEPENDS:append:k1 = " opensbi"
 
 LIC_FILES_CHKSUM:k1 = "file://Licenses/README;md5=2ca5f2c35c8cc335f0a19756634782f1"
@@ -20,7 +20,7 @@ SRC_URI:remove:riscv64:k1 = " ${SRC_URI_RISCV}"
 
 do_configure:prepend:k1() {
 	mkimage -A riscv -O linux -T script -C none -n "U-Boot boot script" \
-		-d ${UNPACKDIR}/${UBOOT_ENV}.${UBOOT_ENV_SRC_SUFFIX} ${UNPACKDIR}/${UBOOT_ENV_BINARY}
+		-d ${WORKDIR}/${UBOOT_ENV}.${UBOOT_ENV_SRC_SUFFIX} ${WORKDIR}/${UBOOT_ENV_BINARY}
 }
 
 do_deploy:append:orangepi-rv2() {
