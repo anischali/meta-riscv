@@ -1,0 +1,13 @@
+header:
+  version: 20
+
+repos:
+  meta-openwrt:
+    url: https://github.com/anischali/meta-openwrt.git
+    path: layers/meta-openwrt
+    branch: CA/scarthgap
+
+local_conf_header:
+  openwrt_cfg:
+    INHERIT += " openwrt-distro-defaults "
+    DISTRO_FEATURES:remove = "usrmerge"
