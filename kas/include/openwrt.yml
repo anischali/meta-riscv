@@ -8,6 +8,6 @@ repos:
     branch: CA/scarthgap
 
 local_conf_header:
-  openwrt_cfg:
+  openwrt_cfg: |
     INHERIT += " openwrt-distro-defaults "
     DISTRO_FEATURES:remove = "usrmerge"
